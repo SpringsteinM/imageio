@@ -305,9 +305,9 @@ class PyAVPlugin(PluginV3):
                     # HTTP-based streams like DASH. Note that solving streams
                     # like this is temporary until the new request object gets
                     # implemented.
-                    self._container = av.open(request.raw_uri)
+                    self._container = av.open(request.raw_uri, metadata_errors="ignore")
                 else:
-                    self._container = av.open(request.get_file())
+                    self._container = av.open(request.get_file(), metadata_errors="ignore")
                 self._video_stream = self._container.streams.video[0]
                 self._decoder = self._container.decode(video=0)
             except av.AVError:
