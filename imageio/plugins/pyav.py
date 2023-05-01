@@ -279,7 +279,7 @@ class PyAVPlugin(PluginV3):
         *,
         container: str = None,
         metadata_errors: str = None,
-        format: str = None,
+        codec: str = None,
     ) -> None:
         """Initialize a new Plugin Instance.
 
@@ -308,9 +308,9 @@ class PyAVPlugin(PluginV3):
                     # HTTP-based streams like DASH. Note that solving streams
                     # like this is temporary until the new request object gets
                     # implemented.
-                    self._container = av.open(request.raw_uri, metadata_errors=metadata_errors, format=format)
+                    self._container = av.open(request.raw_uri, metadata_errors=metadata_errors, format=codec)
                 else:
-                    self._container = av.open(request.get_file(), metadata_errors=metadata_errors, format=format)
+                    self._container = av.open(request.get_file(), metadata_errors=metadata_errors, format=codec)
                 self._video_stream = self._container.streams.video[0]
                 self._decoder = self._container.decode(video=0)
             except av.AVError:
