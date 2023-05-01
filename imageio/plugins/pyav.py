@@ -292,7 +292,7 @@ class PyAVPlugin(PluginV3):
         to call ``super().__init__(request)``.
 
         """
-
+        print(codec, flush=True)
         super().__init__(request)
         if metadata_errors is None:
             metadata_errors = "ignore"
@@ -308,9 +308,9 @@ class PyAVPlugin(PluginV3):
                     # HTTP-based streams like DASH. Note that solving streams
                     # like this is temporary until the new request object gets
                     # implemented.
-                    self._container = av.open(request.raw_uri, metadata_errors=metadata_errors, format=codec)
+                    self._container = av.open(request.raw_uri, metadata_errors=metadata_errors, format="mp4")
                 else:
-                    self._container = av.open(request.get_file(), metadata_errors=metadata_errors, format=codec)
+                    self._container = av.open(request.get_file(), metadata_errors=metadata_errors, format="mp4")
                 self._video_stream = self._container.streams.video[0]
                 self._decoder = self._container.decode(video=0)
             except av.AVError:
